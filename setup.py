@@ -8,7 +8,7 @@ __version__="0.0.0"
 
 REPO_NAME='ML_SIH'
 AUTHOR_USER_NAME='nagarajRPoojari'
-SRC_REPO='ML_SIH'
+SRC_REPO='pipeline'
 AUTHOR_EMAIL='np137270@gmail.com'
 
 
