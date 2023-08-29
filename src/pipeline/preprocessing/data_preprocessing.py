@@ -8,18 +8,18 @@ class DataPreprocesser():
         self.features=7
     
     def preprocess(self,data):
-        user_={
-            'Location':user['Location'],
-            'Severity': encoder(user['Severity'],self.classes['severity']),
-            'Capacity': encoder(user['Capacity'],self.classes['capacity']),
-            'Service':encoder(user['Service'],self.classes['Service']),
-            'Specialization': encoder(user['Specialization'], self.classes['specialization']),
-            'Medical Facility':encoder(user['Medical Facility'],self.classes['Medical Facility']),
-            'Supply and Resource':encoder(user['Supply and Resource'], self.classes['Supply and Resource']),
-            'calamities':encoder(user['calamities'] , self.classes['calamities'])
+        data_={
+            'Location':data['Location'],
+            'Severity': self.encoder(data['Severity'],self.classes['Severity']),
+            'Capacity': self.encoder(data['Capacity'],self.classes['Capacity']),
+            'Services':self.encoder(data['Services'],self.classes['Services']),
+            'Specialization': self.encoder(data['Specialization'], self.classes['Specialization']),
+            'Medical Facility':self.encoder(data['Medical Facility'],self.classes['Medical Facility']),
+            'Supply and Resource':self.encoder(data['Supply and Resource'], self.classes['Supply and Resource']),
+            'calamities':self.encoder(data['calamities'] , self.classes['calamities'])
         }   
     
-        return user_
+        return data_
     
     def encoder(self,values,labels):
         l=np.zeros(len(labels))

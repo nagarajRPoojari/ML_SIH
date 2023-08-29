@@ -1,22 +1,23 @@
 import os
 import numpy as np
-from scipy.spatial.distance import cosine
+from scipy.spatial.distance import euclidean
 from pipeline.preprocessing.data_preprocessing import DataPreprocesser
 
 class Prediction():
     def __init__(self):
         
         self.classes={
-            "severity" : ["low", "medium", "high"],
-            "capacity" : ["small", "medium", "large"],
-            "services" : ["medical care", "food and water", "transportation", "language assistance", "counseling"],
-            "availability" : ["available", "almost full", "full", "temporarily unavailable"],
-            "specialization" : ["medical", "water rescue", "search and rescue", "fire response", "mental health support"],
-            "medical_facility" : ["basic first aid", "trauma care", "surgical facilities", "intensive care units", "pediatric care"],
-            "supply_and_resource" : ["well-stocked", "limited supplies", "medical equipment available", "pharmaceuticals available"],
-            "calamities" : ["earthquake", "flood", "fire", "hurricane", "tsunami", "pandemic"]
+            "Severity" : ["high", "low", "medium"],
+            "Capacity" : ["large", "medium", "small"],
+            "Services" : ["counseling", "food and water", "language assistance", "medical care", "transportation"],
+            "Availability" : [ "almost full","available", "full", "temporarily unavailable"],
+            "Specialization" : [  "fire response","medical", "mental health support","search and rescue","water rescue"],
+            "Medical Facility" : ["basic first aid", "intensive care units", "pediatric care","surgical facilities","trauma care" ],
+            "Supply and Resource" : [ "limited supplies", "medical equipment available", "pharmaceuticals available","well-stocked"],
+            "calamities" : ["earthquake", "fire", "flood",  "hurricane",  "pandemic","tsunami"]
         } 
         self.preprocesser=DataPreprocesser(self.classes)
+        
         
         
     
@@ -25,19 +26,19 @@ class Prediction():
         point1=np.array([user['Location']['lat'],user['Location']['long']])
         point2=np.array([rescue['Location']['lat'],rescue['Location']['long']])
         dist=np.linalg.norm(point1 - point2)
-        cos_dist=cosine(user['Location']['lat'],rescue['Location']['lat'])
-        cos_dist+=cosine(user['Location']['long'],rescue['Location']['long'])
-        sev=cosine(user['Severity'],rescue['Severity'])
-        cap=cosine(user['Capacity'],rescue['Capacity'])
-        serv=cosine(user['Service'],rescue['Services'])
-        spec=cosine(user['Specialization'],rescue['Specialization'])
-        med=cosine(user['Medical Facility'],rescue['Medical Facility'])
-        suppy_and_rescource=cosine(user['Supply and Resource'],rescue['Supply and Resource'])
-        cal=cosine(user['calamities'],rescue['calamities'])
+        cos_dist=euclidean(user['Location']['lat'],rescue['Location']['lat'])
+        cos_dist+=euclidean(user['Location']['long'],rescue['Location']['long'])
+        sev=euclidean(user['Severity'],rescue['Severity'])
+        cap=euclidean(user['Capacity'],rescue['Capacity'])
+        serv=euclidean(user['Services'],rescue['Services'])
+        spec=euclidean(user['Specialization'],rescue['Specialization'])
+        med=euclidean(user['Medical Facility'],rescue['Medical Facility'])
+        suppy_and_rescource=euclidean(user['Supply and Resource'],rescue['Supply and Resource'])
+        cal=euclidean(user['calamities'],rescue['calamities'])
 
         dist=dist/100
 
-        similarities = np.array([0.9*dist,0.8*sev,0.5*cap,0.3*serv,0.5*spec,0.2*med,0.2*suppy_and_rescource, 0.4*cal])
+        similarities = np.array([dist,sev,cap,serv,spec,med,suppy_and_rescource, cal])
         return dist ,similarities 
     
     
@@ -45,8 +46,8 @@ class Prediction():
         user_data=self.preprocesser.preprocess(user)
         scores=[]
         for rescue in data:
-            rescue_data=self.preprocesser.preprocess(rescue_data)
-            score=similarity(user_data,rescue_data)
+            rescue_data=self.preprocesser.preprocess(rescue)
+            score=self.similarity(user_data,rescue_data)
             scores.append((rescue['id'],score))
             
         scores=np.array(scores)
