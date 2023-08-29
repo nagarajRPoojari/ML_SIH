@@ -1,4 +1,3 @@
-import pinecone
 import os
 import numpy as np
 
