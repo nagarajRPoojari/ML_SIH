@@ -12,14 +12,13 @@ class Prediction():
             "Services" : ["counseling", "food and water", "language assistance", "medical care", "transportation"],
             "Availability" : [ "almost full","available", "full", "temporarily unavailable"],
             "Specialization" : [  "fire response","medical", "mental health support","search and rescue","water rescue"],
-            "Medical Facility" : ["basic first aid", "intensive care units", "pediatric care","surgical facilities","trauma care" ],
-            "Supply and Resource" : [ "limited supplies", "medical equipment available", "pharmaceuticals available","well-stocked"],
+            "Medical_Facility" : ["basic first aid", "intensive care units", "pediatric care","surgical facilities","trauma care" ],
+            "Supply_and_Resource" : [ "limited supplies", "medical equipment available", "pharmaceuticals available","well-stocked"],
             "calamities" : ["earthquake", "fire", "flood",  "hurricane",  "pandemic","tsunami"]
         } 
         self.preprocesser=DataPreprocesser(self.classes)
         
-        
-        
+    
     
     
     def similarity(self,user,rescue):
@@ -32,14 +31,14 @@ class Prediction():
         cap=euclidean(user['Capacity'],rescue['Capacity'])
         serv=euclidean(user['Services'],rescue['Services'])
         spec=euclidean(user['Specialization'],rescue['Specialization'])
-        med=euclidean(user['Medical Facility'],rescue['Medical Facility'])
-        suppy_and_rescource=euclidean(user['Supply and Resource'],rescue['Supply and Resource'])
+        med=euclidean(user['Medical_Facility'],rescue['Medical_Facility'])
+        suppy_and_rescource=euclidean(user['Supply_and_Resource'],rescue['Supply_and_Resource'])
         cal=euclidean(user['calamities'],rescue['calamities'])
 
         dist=dist/100
 
         similarities = np.array([dist,sev,cap,serv,spec,med,suppy_and_rescource, cal])
-        return dist ,similarities 
+        return dist ,np.sum(similarities) 
     
     
     def similarity_search(self,user,data,k=3):
