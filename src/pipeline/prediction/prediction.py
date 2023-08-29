@@ -1,11 +1,10 @@
 import os
 import numpy as np
 from scipy.spatial.distance import cosine
-from pipeline.data_preprocessing import DataPreprocesser
+from pipeline.preprocessing.data_preprocessing import DataPreprocesser
 
 class Prediction():
     def __init__(self):
-        self.preprocesser=DataPreprocesser(self.classes)
         
         self.classes={
             "severity" : ["low", "medium", "high"],
@@ -17,6 +16,7 @@ class Prediction():
             "supply_and_resource" : ["well-stocked", "limited supplies", "medical equipment available", "pharmaceuticals available"],
             "calamities" : ["earthquake", "flood", "fire", "hurricane", "tsunami", "pandemic"]
         } 
+        self.preprocesser=DataPreprocesser(self.classes)
         
         
     
