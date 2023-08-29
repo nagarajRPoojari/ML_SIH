@@ -19,7 +19,7 @@ class DataPreprocesser():
             'calamities':encoder(user['calamities'] , self.classes['calamities'])
         }   
     
-    return user_
+        return user_
     
     def encoder(self,values,labels):
         l=np.zeros(len(labels))
