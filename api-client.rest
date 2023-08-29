@@ -88,7 +88,7 @@ content-type: application/json
         "Severity":["low"],
         "Capacity":["medium"],
         "Services":["food and water"],
-        "Availability":["available"],
+        "Availability":["temporarily unavailable"],
         "Specialization":["water rescue"],
         "Medical_Facility":["basic first aid"],
         "Supply_and_Resource":["limited supplies"],
