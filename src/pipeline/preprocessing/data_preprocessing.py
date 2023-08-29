@@ -14,8 +14,8 @@ class DataPreprocesser():
             'Capacity': self.encoder(data['Capacity'],self.classes['Capacity']),
             'Services':self.encoder(data['Services'],self.classes['Services']),
             'Specialization': self.encoder(data['Specialization'], self.classes['Specialization']),
-            'Medical Facility':self.encoder(data['Medical Facility'],self.classes['Medical Facility']),
-            'Supply and Resource':self.encoder(data['Supply and Resource'], self.classes['Supply and Resource']),
+            'Medical_Facility':self.encoder(data['Medical_Facility'],self.classes['Medical_Facility']),
+            'Supply_and_Resource':self.encoder(data['Supply_and_Resource'], self.classes['Supply_and_Resource']),
             'calamities':self.encoder(data['calamities'] , self.classes['calamities'])
         }   
     

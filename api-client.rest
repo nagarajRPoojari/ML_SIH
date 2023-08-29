@@ -1,0 +1,98 @@
+
+
+POST http://localhost:8000/predict
+content-type: application/json
+
+{
+    "user":{
+        "id":"81",
+        "Location":{
+            "lat":123,
+            "long":51
+        },
+        "Severity":["low"],
+        "Capacity":["small"],
+        "Services":["medical care"],
+        "Availability":["available"],
+        "Specialization":["medical"],
+        "Medical_Facility":["basic first aid"],
+        "Supply_and_Resource":["limited supplies"],
+        "calamities":["flood"]
+    },
+    "all_data":[
+        {
+        "id":"1",
+        "Location":{
+            "lat":123,
+            "long":98
+        },
+        "Severity":["high"],
+        "Capacity":["large"],
+        "Services":["medical","counseling","transportation"],
+        "Availability":["available"],
+        "Specialization":["medical"],
+        "Medical_Facility":["intensive care units"],
+        "Supply_and_Resource":["limited supplies"],
+        "calamities":["flood"]
+    },
+    {
+        "id":"2",
+        "Location":{
+            "lat":13,
+            "long":51
+        },
+        "Severity":["high"],
+        "Capacity":["medium"],
+        "Services":["medical","transportation","medical care"],
+        "Availability":["available"],
+        "Specialization":["fire response"],
+        "Medical_Facility":["intensive care units","trauma care"],
+        "Supply_and_Resource":["limited supplies"],
+        "calamities":["flood"]
+    },
+    {
+        "id":"3",
+        "Location":{
+            "lat":123,
+            "long":51
+        },
+        "Severity":["high"],
+        "Capacity":["medium"],
+        "Services":["food and water"],
+        "Availability":["available"],
+        "Specialization":["water rescue"],
+        "Medical_Facility":["basic first aid"],
+        "Supply_and_Resource":["limited supplies"],
+        "calamities":["pandemic"]
+    },
+    {
+        "id":"4",
+        "Location":{
+            "lat":123,
+            "long":51
+        },
+        "Severity":["low"],
+        "Capacity":["small"],
+        "Services":["food and water","medical care"],
+        "Availability":["available"],
+        "Specialization":["water rescue"],
+        "Medical_Facility":["basic first aid","surgical facilities"],
+        "Supply_and_Resource":["limited supplies"],
+        "calamities":["flood","pandemic"]
+    },{
+        "id":"89",
+        "Location":{
+            "lat":123,
+            "long":51
+        },
+        "Severity":["low"],
+        "Capacity":["medium"],
+        "Services":["food and water"],
+        "Availability":["available"],
+        "Specialization":["water rescue"],
+        "Medical_Facility":["basic first aid"],
+        "Supply_and_Resource":["limited supplies"],
+        "calamities":["flood"]
+    }
+    ]
+}
