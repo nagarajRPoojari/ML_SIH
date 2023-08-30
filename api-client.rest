@@ -1,6 +1,6 @@
 
 
-POST http://localhost:8000/predict
+POST https://recommmendation-engine-sih.onrender.com/predict
 content-type: application/json
 
 {

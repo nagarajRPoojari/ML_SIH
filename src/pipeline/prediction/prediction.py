@@ -46,12 +46,12 @@ class Prediction():
             if self.is_available(rescue):
                 rescue_team=self.preprocesser.preprocess(rescue)
                 score=self.similarity(user_data,rescue_team)
-                print()
+                
                 scores[rescue['id']]=score
           
-        print(scores)  
+         
         sorted_dict =  dict(sorted(scores.items(), key=itemgetter(1)))
-        print(sorted_dict)
+        
         return sorted_dict
     
     def proximity(self,userLocation,rescueLocation):
