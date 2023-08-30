@@ -54,7 +54,7 @@ content-type: application/json
         "id":"3",
         "Location":{
             "lat":123,
-            "long":51
+            "long":510
         },
         "Severity":["high"],
         "Capacity":["medium"],
@@ -69,7 +69,7 @@ content-type: application/json
         "id":"4",
         "Location":{
             "lat":123,
-            "long":51
+            "long":70
         },
         "Severity":["low"],
         "Capacity":["small"],

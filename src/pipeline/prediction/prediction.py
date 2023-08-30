@@ -3,8 +3,9 @@ import numpy as np
 from scipy.spatial.distance import euclidean
 from pipeline.preprocessing.data_preprocessing import DataPreprocesser
 from pipeline.component import Data , DataItem
+from operator import itemgetter
 class Prediction():
-    def __init__(self)->None:
+    def __init__(self,weight=[0.9,0.9,0.9,0.6,0.4,0.2,0.3,0.7])->None:
         
         self.classes={
             "Severity" : ["high", "low", "medium"],
@@ -17,46 +18,47 @@ class Prediction():
             "calamities" : ["earthquake", "fire", "flood",  "hurricane",  "pandemic","tsunami"]
         } 
         self.preprocesser=DataPreprocesser(self.classes)
+        self.weight=weight
         
     
     
     
     def similarity(self,user,rescue):
-        point1=np.array([user['Location']['lat'],user['Location']['long']])
-        point2=np.array([rescue['Location']['lat'],rescue['Location']['long']])
-        dist=np.linalg.norm(point1 - point2)
-        cos_dist=euclidean(user['Location']['lat'],rescue['Location']['lat'])
-        cos_dist+=euclidean(user['Location']['long'],rescue['Location']['long'])
-        sev=euclidean(user['Severity'],rescue['Severity'])
-        cap=euclidean(user['Capacity'],rescue['Capacity'])
-        serv=euclidean(user['Services'],rescue['Services'])
-        spec=euclidean(user['Specialization'],rescue['Specialization'])
-        med=euclidean(user['Medical_Facility'],rescue['Medical_Facility'])
-        suppy_and_rescource=euclidean(user['Supply_and_Resource'],rescue['Supply_and_Resource'])
-        cal=euclidean(user['calamities'],rescue['calamities'])
-
-        dist=dist/100
-
-        similarities = np.array([dist,sev,cap,serv,spec,med,suppy_and_rescource, cal])
-        return dist ,np.sum(similarities) 
+        distances=[]
+        proximity=self.proximity(user['Location'],rescue['Location'])
+        proximity/=10
+        distances.append(proximity)
+        
+        for feature , _ in self.classes.items():
+            if feature != 'Availability':
+                dist = euclidean(user[feature],rescue[feature])
+                distances.append(dist)
+            
+        distances = np.array(distances)
+        distances = np.array(self.weight, dtype='object') * distances
+        return np.sum(distances) 
     
     
     def similarity_search(self,user,data,k=3):
         user_data=self.preprocesser.preprocess(user)
-        scores=[]
+        scores={}
         for rescue in data:
             if self.is_available(rescue):
                 rescue_team=self.preprocesser.preprocess(rescue)
                 score=self.similarity(user_data,rescue_team)
-                scores.append((rescue['id'],score))
-            
-        scores=np.array(scores)
-        print(scores)
-        
-        scores_idx=np.argsort(scores[:,-1])
-        
-        scores=scores[scores_idx[:k]]
-        return scores
+                print()
+                scores[rescue['id']]=score
+          
+        print(scores)  
+        sorted_dict =  dict(sorted(scores.items(), key=itemgetter(1)))
+        print(sorted_dict)
+        return sorted_dict
+    
+    def proximity(self,userLocation,rescueLocation):
+        point1=np.array([userLocation['lat'],userLocation['long']])
+        point2=np.array([rescueLocation['lat'],rescueLocation['long']])
+        return euclidean(point1,point2)
+    
     
     def is_available(self,rescue_team):
         if rescue_team['Availability'][0]=='available':
