@@ -10,7 +10,7 @@ class Prediction():
         self.classes={
             "Severity" : ["high", "low", "medium"],
             "Capacity" : ["large", "medium", "small"],
-            "Services" : ["counseling", "food and water", "language assistance", "medical care", "transportation"],
+            "Services" : ["counseling", "food and water", "medical care", "transportation","fire rescue"],
             "Availability" : [ "almost full","available", "full", "temporarily unavailable"],
             "Specialization" : ["fire response","medical", "mental health support","search and rescue","water rescue"],
             "Medical_Facility" : ["basic first aid", "intensive care units", "pediatric care","surgical facilities","trauma care" ],
